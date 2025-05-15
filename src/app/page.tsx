@@ -4,10 +4,11 @@ import Project from '@/db/models/project'
 import { connect } from '@/lib/db'
 import { IProject } from '@/types/interfaces'
 import { revalidatePath } from 'next/cache'
+import { Model } from 'mongoose'
 
 export default async function Home (): Promise<React.ReactNode> {
   await connect()
-  const projects = await Project.find({}).exec()
+  const projects = await (Project as Model<IProject>).find().lean().exec()
 
   const createProject = async (project: IProject): Promise<void> => {
     'use server'
