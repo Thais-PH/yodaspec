@@ -1,16 +1,19 @@
 import { IProject } from '@/types/interfaces'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Link from 'next/link'
 
 function ProjectCard ({ project }: Readonly<{ project: IProject }>): React.ReactNode {
   return (
-    <Card className='w-[240px]'>
-      <CardHeader>
-        <CardTitle>{project.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className='text-sm text-gray-500'>{project.description}</p>
-      </CardContent>
-    </Card>
+    <Link href={`/project/${String(project._id)}`}>
+      <Card className='w-[240px] hover:shadow-md transition-all duration-200'>
+        <CardHeader>
+          <CardTitle>{project.title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className='text-sm text-gray-500'>{project.description}</p>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
 
