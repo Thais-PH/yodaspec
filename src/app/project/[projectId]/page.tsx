@@ -11,9 +11,9 @@ async function ProjectHome (props: Readonly<{ params: { projectId: string } }>):
   }
 
   return (
-    <div>
-      <h1>Project Home</h1>
-      <p>{projectId}</p>
+    <div className='flex flex-col gap-4'>
+      <h1 className='text-2xl font-bold'>Project {project.title}</h1>
+      <p className='text-sm text-gray-500'>{project.description}</p>
     </div>
   )
 }
