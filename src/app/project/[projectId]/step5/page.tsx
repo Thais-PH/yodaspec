@@ -3,9 +3,11 @@ import FeaturesList from '@/components/lists/features-list'
 
 function Step5 (): React.ReactNode {
   return (
-    <div className='flex flex-col gap-4 w-full'>
+    <div className='flex flex-col gap-6 w-full'>
       <StepBackButton />
-      <h1 className='text-2xl mb-16 text-center font-bold'>Validation de vos Spécifications</h1>
+      <h1 className='text-3xl font-extrabold text-center dark:text-white text-black'>
+        Validation de vos Spécifications
+      </h1>
       <FeaturesList />
     </div>
   )

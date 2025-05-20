@@ -26,25 +26,31 @@ function FeaturesTable ({ features = [] }: Readonly<{ features: IFeature[] }>): 
   }
 
   return (
-    <div className=' border mt-4 mb-8'>
+    <div className='border rounded-xl overflow-hidden mt-6 mb-10 shadow-sm'>
       <Table>
         <TableHeader>
-          <TableRow className='bg-[#121212]'>
-            <TableHead className='w-1/12 pl-8'>
-              <Checkbox onCheckedChange={handleGlobalCheckboxChange} checked={areAllSelected()} />
+          <TableRow className='bg-surface-light-20 dark:bg-surface-20 border-b border-surface-light-30 dark:border-surface-30 hover:bg-surface-light-20 dark:hover:bg-surface-20'>
+            <TableHead className='pl-8'>
+              <Checkbox
+                onCheckedChange={handleGlobalCheckboxChange}
+                checked={areAllSelected()}
+              />
             </TableHead>
-            <TableHead className='w-1/12'>Validation</TableHead>
-            <TableHead className='w-4/12 pl-16'>Nom de la fonctionnalité</TableHead>
-            <TableHead className='w-5/12 pl-4'>Description</TableHead>
-            <TableHead className='w-1/12' />
+            <TableHead>Validation</TableHead>
+            <TableHead className='pl-8'>Nom de la fonctionnalité</TableHead>
+            <TableHead className='pl-4'>Description</TableHead>
+            <TableHead className='pl-4'>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {
-            features.map((feature, key) => (
-              <FeatureTableItem feature={feature} key={key} checked={isSelected(feature)} onCheckedChange={() => handleCheckboxChange(feature)} />
-            ))
-          }
+          {features.map((feature, key) => (
+            <FeatureTableItem
+              key={key}
+              feature={feature}
+              checked={isSelected(feature)}
+              onCheckedChange={() => handleCheckboxChange(feature)}
+            />
+          ))}
         </TableBody>
       </Table>
     </div>

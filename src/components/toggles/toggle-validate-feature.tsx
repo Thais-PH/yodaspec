@@ -1,10 +1,19 @@
 import { Toggle } from '@/components/ui/toggle'
 import { Check } from 'lucide-react'
 
-function ToggleValidateFeature ({ isChecked, onChange }: Readonly<{ isChecked?: boolean, onChange?: (checked: boolean) => void }>): React.ReactElement {
+function ToggleValidateFeature ({ isChecked, onChange }: Readonly<{ isChecked: boolean, onChange: (checked: boolean) => void }>): React.ReactElement {
   return (
-    <Toggle className='w-8 h-8' variant='outline' onPressedChange={onChange} pressed={isChecked}>
-      <Check className='w-4 h-4' />
+    <Toggle
+      className={`w-8 h-8 transition-all duration-150 border-2 ${
+        isChecked
+          ? 'text-white border-primary hover:bg-primary-10 dark:hover:bg-primary-10'
+          : 'dark:hover:bg-primary hover:bg-surface-tonal-light-10'
+      }`}
+      variant='outline'
+      onPressedChange={onChange}
+      pressed={isChecked}
+    >
+      <Check className='size-4' />
     </Toggle>
   )
 }
