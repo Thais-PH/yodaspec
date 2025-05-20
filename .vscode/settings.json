@@ -21,9 +21,9 @@
     "http",
     "net"
   ],
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#422710",
-    "titleBar.activeBackground": "#5C3716",
-    "titleBar.activeForeground": "#FDFBF8"
-  }
+  // "workbench.colorCustomizations": {
+  //   "activityBar.background": "#422710",
+  //   "titleBar.activeBackground": "#5C3716",
+  //   "titleBar.activeForeground": "#FDFBF8"
+  // }
 }
