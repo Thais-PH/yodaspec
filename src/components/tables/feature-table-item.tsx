@@ -3,15 +3,12 @@ import ToggleValidateFeature from '../toggles/toggle-validate-feature'
 import ActionTableButton from '../buttons/action-table-button'
 import { IFeature } from '@/types/interfaces'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useState } from 'react'
 
-function FeatureTableItem ({ checked, feature, onCheckedChange }: Readonly<{ checked?: boolean, feature: IFeature, onCheckedChange?: () => void }>): React.ReactNode {
-  const [isTempValidate, setIsTempValidate] = useState(false)
-
+function FeatureTableItem ({ checked, feature, onCheckedChange, isTempValidate, handleToggleTempValidation }: Readonly<{ checked?: boolean, feature: IFeature, onCheckedChange?: () => void, isTempValidate?: boolean, handleToggleTempValidation?: () => void }>): React.ReactNode {
   return (
     <TableRow
       className={`transition hover:bg-surface-light-20 dark:hover:bg-surface-20 ${
-        isTempValidate ? '!border-l-3 border-b-0 border-primary' : ''
+        (isTempValidate ?? false) ? '!border-l-3 border-b-0 border-primary' : ''
       }`}
     >
       <TableCell className='pl-8'>
@@ -19,8 +16,8 @@ function FeatureTableItem ({ checked, feature, onCheckedChange }: Readonly<{ che
       </TableCell>
       <TableCell>
         <ToggleValidateFeature
-          isChecked={isTempValidate}
-          onChange={setIsTempValidate}
+          isChecked={isTempValidate ?? false}
+          onChange={handleToggleTempValidation}
         />
       </TableCell>
       <TableCell className='pl-8 font-medium text-black dark:text-white'>

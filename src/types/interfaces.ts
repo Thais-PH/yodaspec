@@ -10,11 +10,10 @@ export interface IProject {
 }
 
 export interface IFeature {
-  _id: string
+  _id?: string
   title: string
   description: string
   isValidate: boolean
-  isTempValidate?: boolean
 }
 
 export interface IUseSelectionProps<T> {

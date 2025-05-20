@@ -4,19 +4,24 @@ import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components
 import { Checkbox } from '@/components/ui/checkbox'
 import { IFeature } from '@/types/interfaces'
 import FeatureTableItem from './feature-table-item'
-import { useSelection } from '@/hooks/useSelection'
 
-function FeaturesTable ({ features = [] }: Readonly<{ features: IFeature[] }>): React.ReactNode {
-  const {
-    isSelected,
-    areAllSelected,
-    toggleItem,
-    toggleAll
-  } = useSelection<IFeature>({
-    items: features,
-    idGetter: (feature) => feature._id
-  })
-
+function FeaturesTable ({
+  features = [],
+  isSelected,
+  areAllSelected,
+  toggleItem,
+  toggleAll,
+  tempValidateFeatures,
+  handleToggleTempValidation
+}: Readonly<{
+  features: IFeature[]
+  tempValidateFeatures: IFeature[]
+  isSelected: (item: IFeature) => boolean
+  areAllSelected: () => boolean
+  toggleItem: (item: IFeature) => void
+  toggleAll: () => void
+  handleToggleTempValidation: (feature: IFeature) => void
+}>): React.ReactNode {
   const handleGlobalCheckboxChange = (): void => {
     toggleAll()
   }
@@ -49,6 +54,13 @@ function FeaturesTable ({ features = [] }: Readonly<{ features: IFeature[] }>): 
               feature={feature}
               checked={isSelected(feature)}
               onCheckedChange={() => handleCheckboxChange(feature)}
+              isTempValidate={tempValidateFeatures.some(
+                (tempFeature) =>
+                  (tempFeature._id ?? tempFeature.title) ===
+                  (feature._id ?? feature.title)
+              )}
+              handleToggleTempValidation={() =>
+                handleToggleTempValidation(feature)}
             />
           ))}
         </TableBody>
