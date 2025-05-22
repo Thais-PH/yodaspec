@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import { IFeature } from '@/types/interfaces'
 import { useSelection } from '@/hooks/useSelection'
 import { useFeatureValidation } from '@/hooks/useFeatureValidation'
+import ValidationFeaturesDialog from '../dialogs/validation-features-dialog'
 function BlockManualValidation ({ features }: Readonly<{ features: IFeature[] }>): React.ReactNode {
   // Hooks to handle selection in table
   const { isSelected, areAllSelected, toggleItem, toggleAll, getSelectedItems } =
@@ -31,17 +32,17 @@ function BlockManualValidation ({ features }: Readonly<{ features: IFeature[] }>
         <div className='flex gap-4 text-black dark:text-white'>
           <Button
             disabled={getSelectedItems().length === 0}
-            variant='ghost'
+            variant='outline'
             onClick={() => handleToggleTempSelectedValidation(getSelectedItems())}
-            className=' hover:text-primary-10 dark:hover:text-primary-10 transition cursor-pointer'
+            className=' hover:text-primary-10 dark:hover:text-primary-10 hover:bg-white dark:hover:bg-surface-20 transition cursor-pointer'
           >
             <Check className='w-5 h-5' />
           </Button>
           <Button
             disabled={getSelectedItems().length === 0}
             onClick={handleFeatureDelete}
-            variant='ghost'
-            className='cursor-pointer hover:text-red-500 transition'
+            variant='outline'
+            className='cursor-pointer hover:text-red-500 hover:bg-white dark:hover:bg-surface-20 transition'
           >
             <Trash2 className='w-5 h-5' />
           </Button>
@@ -59,9 +60,7 @@ function BlockManualValidation ({ features }: Readonly<{ features: IFeature[] }>
       />
 
       <div className='flex justify-end mt-6'>
-        <Button className='bg-indigo-600 hover:bg-indigo-700 cursor-pointer transition text-white font-semibold shadow px-6 py-2 rounded-lg'>
-          Valider les fonctionnalités
-        </Button>
+        <ValidationFeaturesDialog tempValidateFeatures={tempValidateFeatures} />
       </div>
     </div>
   )

@@ -1,6 +1,4 @@
-// ✅ Hook custom pour gérer sélection + validation temporaire avec toasts
 import { useState } from 'react'
-import { toast } from 'react-toastify'
 import { IFeature } from '@/types/interfaces'
 import { useSelection } from '@/hooks/useSelection'
 
@@ -30,9 +28,6 @@ export function useFeatureValidation (features: IFeature[]): IUseFeatureValidati
       : [...tempValidateFeatures, feature]
 
     setTempValidateFeatures(newTempValidateFeatures)
-
-    toast.success(
-      `${feature.title} ${isAlreadyTempValidated ? 'retirée de' : 'ajoutée à'} la validation temporaire`)
   }
 
   const handleToggleTempSelectedValidation = (features: IFeature[]): void => {
