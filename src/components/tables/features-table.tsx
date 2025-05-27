@@ -37,6 +37,7 @@ function FeaturesTable ({
           <TableRow className='bg-surface-light-20 dark:bg-surface-20 border-b border-surface-light-30 dark:border-surface-30 hover:bg-surface-light-20 dark:hover:bg-surface-20'>
             <TableHead className='pl-8'>
               <Checkbox
+                className='cursor-pointer'
                 onCheckedChange={handleGlobalCheckboxChange}
                 checked={areAllSelected()}
               />

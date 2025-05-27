@@ -12,7 +12,7 @@ function FeatureTableItem ({ checked, feature, onCheckedChange, isTempValidate, 
       }`}
     >
       <TableCell className='pl-8'>
-        <Checkbox checked={checked} onCheckedChange={onCheckedChange} />
+        <Checkbox className='cursor-pointer' checked={checked} onCheckedChange={onCheckedChange} />
       </TableCell>
       <TableCell>
         <ToggleValidateFeature
