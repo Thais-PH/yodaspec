@@ -57,7 +57,7 @@ function UpdateProjectDialog ({
       </DialogTrigger>
       <DialogContent className='h-screen overflow-scroll sm:max-w-3xl w-3xl'>
         <DialogHeader>
-          <DialogTitle>Modifier un projet</DialogTitle>
+          <DialogTitle>Modifier la spécification</DialogTitle>
           <DialogDescription>
             Modifiez les champs si nécessaire.
           </DialogDescription>
@@ -203,7 +203,7 @@ function UpdateProjectDialog ({
               disabled={isLoading}
             >
               {isLoading ? <Loader2 className='w-4 h-4 mr-2 animate-spin' /> : null}
-              Créer le projet
+              Valider
             </Button>
           </DialogFooter>
         </form>
