@@ -1,4 +1,4 @@
-import { getProjectById } from '@/lib/db/services/project-service'
+import { getProjectById } from '@/db/services/project-service'
 import { redirect } from 'next/navigation'
 
 async function ProjectHome (props: Readonly<{ params: Promise<{ projectId: string }> }>): Promise<React.ReactNode> {
@@ -11,9 +11,9 @@ async function ProjectHome (props: Readonly<{ params: Promise<{ projectId: strin
   }
 
   return (
-    <div>
-      <h1>Project {project.title}</h1>
-      <p>{project.description}</p>
+    <div className='flex flex-col gap-4'>
+      <h1 className='text-2xl font-bold'>Project {project.title}</h1>
+      <p className='text-sm text-gray-500'>{project.description}</p>
     </div>
   )
 }

@@ -13,8 +13,8 @@ export async function GET (request: Request): Promise<NextResponse> {
     model: 'gemini-2.0-flash',
     contents: [
       {
-        text: testPromptStory
-      }
+
+        text: testPrompt      }
     ],
     config: {
       responseMimeType: 'application/json'

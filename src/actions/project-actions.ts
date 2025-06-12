@@ -1,7 +1,7 @@
-import Project from '@/lib/db/models/project'
+import Project from '@/db/models/project'
 import { IProject } from '@/types/interfaces'
-import { connect, disconnect } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
+import { connect, disconnect } from '@/lib/db'
 
 const createProject = async (project: IProject): Promise<void> => {
   'use server'

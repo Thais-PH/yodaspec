@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { IProject } from '@/types/interfaces'
+import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
-import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
 function CreateProjectDialog ({
@@ -23,7 +23,7 @@ function CreateProjectDialog ({
 }: Readonly<{
   createProject: (project: IProject) => Promise<void>
 }>): React.ReactNode {
-  const [projectData, setProjectData] = useState({
+  const [projectData, setProjectData] = useState<IProject>({
     title: '',
     description: ''
   })
@@ -36,7 +36,7 @@ function CreateProjectDialog ({
       await createProject(projectData)
       toast.success('Projet créé avec succès')
     } catch (error) {
-      toast.error(`Une erreur est survenue lors de la création du projet :${String(error)}`)
+      toast.error(`Une erreur est survenue lors de la création du projet: ${String(error)}`)
     }
     setIsLoading(false)
   }

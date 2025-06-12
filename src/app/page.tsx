@@ -1,7 +1,7 @@
 import CreateProjectDialog from '@/components/dialogs/create-project-dialog'
 import ProjectsList from '@/components/lists/projects-list'
 import { createProject } from '@/actions/project-actions'
-import { getProjects } from '@/lib/db/services/project-service'
+import { getProjects } from '@/db/services/project-service'
 import { Suspense } from 'react'
 import Loading from './loading'
 
