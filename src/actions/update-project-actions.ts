@@ -1,17 +1,17 @@
-import Project from '@/db/models/project'
+import Project from '@/lib/db/models/project'
 import { IProject } from '@/types/interfaces'
-import { revalidatePath } from 'next/cache'
 import { connect, disconnect } from '@/lib/db'
+import { revalidatePath } from 'next/cache'
 
-const createProject = async (project: IProject): Promise<void> => {
+const updateProject = async (project: IProject): Promise<void> => {
   'use server'
   await connect()
   const _project = new Project(project)
-  await _project.save()
+  await _project.Project.findByIdAndUpdate()
   revalidatePath('/')
   await disconnect()
 }
 
 export {
-  createProject
+  updateProject
 }

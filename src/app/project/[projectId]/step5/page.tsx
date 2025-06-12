@@ -1,3 +1,5 @@
+import UpdateProjectDialog from '@/components/dialogs/update-project'
+import { updateProject } from '@/actions/update-project-actions'
 import StepBackButton from '@/components/buttons/step-back-button'
 import { IFeature, IStep5PageProps } from '@/types/interfaces'
 import BlockManualValidation from '@/components/blocks/block-manual-validation'
@@ -13,6 +15,7 @@ async function Step5 ({ params }: Readonly<IStep5PageProps>): Promise<React.Reac
       <h1 className='text-3xl font-extrabold text-center dark:text-white text-black'>
         Validation de vos Spécifications
       </h1>
+       <UpdateProjectDialog updateProject={updateProject} />
       <BlockManualValidation projectId={projectId} validateFeatures={validateFeatures} deleteFeatures={deleteFeatures} features={features} />
     </div>
   )

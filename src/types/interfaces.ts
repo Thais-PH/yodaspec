@@ -12,9 +12,17 @@ export interface IProject {
 
 export interface IFeature {
   _id?: string
-  idProject: string
   title: string
   description: string
+  goal: string
+  successconditions: string
+  actors?: object[]
+  requirements: string
+  flowstages: string
+  userstory: string
+  postconditions: string
+  managementrules: string
+  status: string
   isValidate: boolean
 }
 

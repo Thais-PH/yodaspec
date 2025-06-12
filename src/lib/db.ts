@@ -37,6 +37,7 @@ const connect = async (): Promise<void> => {
   try {
     await mongoose.connect(MONGODB_URI, clientOptions)
   } catch (error) {
+
     console.error(error)
     throw new Error('Failed to connect to MongoDB')
   }
