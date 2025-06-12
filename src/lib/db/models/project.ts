@@ -15,8 +15,9 @@ const ProjectSchema = new Schema<IProject>({
   timestamps: true
 })
 
-const Project = mongoose.models.Project
-  ? (mongoose.models.Project as mongoose.Model<IProject>)
-  : mongoose.model<IProject>('Project', ProjectSchema)
+const Project = mongoose.models.Project !== undefined
+  ? mongoose.models.Project
+  : mongoose
+    . model<IProject>('Project', ProjectSchema)
 
 export default Project

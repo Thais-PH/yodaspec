@@ -1,7 +1,7 @@
-import { connect } from '@/lib/db'
-import { testPromptStory } from '@/prompts/test-prompts'
 import { GoogleGenAI } from '@google/genai'
 import { NextResponse } from 'next/server'
+import { connect } from '@/lib/db'
+import { testPrompt } from '@/prompts/test-prompts'
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY
@@ -13,7 +13,7 @@ export async function GET (request: Request): Promise<NextResponse> {
     model: 'gemini-2.0-flash',
     contents: [
       {
-        text: testPromptStory
+        text: testPrompt
       }
     ],
     config: {
