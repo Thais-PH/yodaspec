@@ -2,6 +2,7 @@ export interface IProject {
   _id?: string
   title: string
   description: string
+  features?: IFeature[]
   createdAt?: Date
   updatedAt?: Date
   // step5: {
@@ -11,6 +12,7 @@ export interface IProject {
 
 export interface IFeature {
   _id?: string
+  idProject: string
   title: string
   description: string
   isValidate: boolean

@@ -6,7 +6,8 @@ import { IFeature } from '@/types/interfaces'
 import { useSelection } from '@/hooks/useSelection'
 import { useFeatureValidation } from '@/hooks/useFeatureValidation'
 import ValidationFeaturesDialog from '../dialogs/validation-features-dialog'
-function BlockManualValidation ({ features }: Readonly<{ features: IFeature[] }>): React.ReactNode {
+
+function BlockManualValidation ({ features, validateFeatures }: Readonly<{ features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
   // Hooks to handle selection in table
   const { isSelected, areAllSelected, toggleItem, toggleAll, getSelectedItems } =
     useSelection<IFeature>({
@@ -60,7 +61,7 @@ function BlockManualValidation ({ features }: Readonly<{ features: IFeature[] }>
       />
 
       <div className='flex justify-end mt-6'>
-        <ValidationFeaturesDialog tempValidateFeatures={tempValidateFeatures} />
+        <ValidationFeaturesDialog validateFeatures={validateFeatures} tempValidateFeatures={tempValidateFeatures} />
       </div>
     </div>
   )

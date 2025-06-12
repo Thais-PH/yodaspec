@@ -9,7 +9,11 @@ const ProjectSchema = new Schema<IProject>({
   description: {
     type: String,
     required: false
-  }
+  },
+  features: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Features'
+  }]
   // step2: {
   //   features: [
   //     {
