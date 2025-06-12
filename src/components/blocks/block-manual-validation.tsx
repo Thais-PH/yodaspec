@@ -2,13 +2,13 @@
 import { Check, Trash2 } from 'lucide-react'
 import FeaturesTable from '../tables/features-table'
 import { Button } from '../ui/button'
-import { IFeature } from '@/types/interfaces'
+import { IFeature, IProject } from '@/types/interfaces'
 import { useSelection } from '@/hooks/useSelection'
 import { useFeatureValidation } from '@/hooks/useFeatureValidation'
 import ValidationFeaturesDialog from '../dialogs/validation-features-dialog'
 import { toast } from 'react-toastify'
 
-function BlockManualValidation ({ projectId, features, validateFeatures, deleteFeatures }: Readonly<{ projectId: string, features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void>, deleteFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
+function BlockManualValidation ({ projectId, features, validateFeatures, deleteFeatures, updateProject }: Readonly<{ projectId: string, features: IFeature[], validateFeatures: (projectId: string, features: IFeature[]) => Promise<void>, deleteFeatures: (features: IFeature[], projectId: string) => Promise<void>, updateProject: (project: IProject) => Promise<void> }>): React.ReactNode {
   // Hooks to handle selection in table
   const { isSelected, areAllSelected, toggleItem, toggleAll, getSelectedItems } =
     useSelection<IFeature>({
@@ -25,7 +25,7 @@ function BlockManualValidation ({ projectId, features, validateFeatures, deleteF
 
   const handleDeleteFeatures = async (): Promise<void> => {
     try {
-      await deleteFeatures(getSelectedItems())
+      await deleteFeatures(getSelectedItems(), projectId)
       toast.success('Spécifications supprimées avec succès')
     } catch (error) {
       console.error('Error deleting features:', error)
@@ -68,6 +68,7 @@ function BlockManualValidation ({ projectId, features, validateFeatures, deleteF
         toggleAll={toggleAll}
         tempValidateFeatures={tempValidateFeatures}
         handleToggleTempValidation={handleToggleTempValidation}
+        updateProject={updateProject}
       />
 
       <div className='flex justify-end mt-6'>

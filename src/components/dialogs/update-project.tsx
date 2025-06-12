@@ -14,15 +14,16 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { IProject, IFeature } from '@/types/interfaces'
-import { Loader2 } from 'lucide-react'
+import { Loader2, PencilIcon } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import mockFeatures from '@/app/project/[projectId]/step5/mock-template'
 
 function UpdateProjectDialog ({
-  updateProject
+  updateProject,
+  feature
 }: Readonly<{
   updateProject: (project: IProject) => Promise<void>
+  feature: IFeature
 }>): React.ReactNode {
   const [projectData, setProjectData] = useState<IFeature>({
     title: '',
@@ -34,12 +35,11 @@ function UpdateProjectDialog ({
     userstory: '',
     postconditions: '',
     managementrules: '',
-    status: ''
+    status: '',
+    isValidate: false
   })
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false)
-
-  const features: IFeature[] = mockFeatures
 
   const handleFeatureSelect = (feature: IFeature): void => {
     setProjectData({
@@ -52,7 +52,8 @@ function UpdateProjectDialog ({
       userstory: feature.userstory ?? '',
       postconditions: feature.postconditions ?? '',
       managementrules: feature.managementrules ?? '',
-      status: feature.status ?? ''
+      status: feature.status ?? '',
+      isValidate: feature.isValidate ?? false
     })
     setOpen(true)
   }
@@ -89,11 +90,9 @@ function UpdateProjectDialog ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <div className='flex flex-wrap gap-2'>
-          {features.map((feature, idx) => (
-            <Button key={idx} variant='outline' onClick={() => handleFeatureSelect(feature)}>
-              {feature.title}
-            </Button>
-          ))}
+          <Button className='cursor-pointer ml-2' key={feature._id ?? feature.title} variant='outline' onClick={() => handleFeatureSelect(feature)}>
+            <PencilIcon className='w-4 h-4' />
+          </Button>
         </div>
       </DialogTrigger>
       <DialogContent className='h-screen overflow-scroll sm:max-w-3xl w-3xl'>

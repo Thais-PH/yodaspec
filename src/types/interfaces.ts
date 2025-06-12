@@ -2,10 +2,7 @@ export interface IProject {
   _id?: string
   title: string
   description: string
-  features?: IFeature[]
-  // step5?: {
-  //   features: IFeature[]
-  // }
+  step5?: IFeature[]
   createdAt?: Date
   updatedAt?: Date
 }
@@ -41,5 +38,5 @@ export interface IUseSelectionReturn<T> {
 }
 
 export interface IStep5PageProps {
-  params: { projectId: string }
+  params: Promise<{ projectId: string }>
 }

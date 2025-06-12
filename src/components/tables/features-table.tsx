@@ -2,7 +2,7 @@
 
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Checkbox } from '@/components/ui/checkbox'
-import { IFeature } from '@/types/interfaces'
+import { IFeature, IProject } from '@/types/interfaces'
 import FeatureTableItem from './feature-table-item'
 
 function FeaturesTable ({
@@ -12,7 +12,8 @@ function FeaturesTable ({
   toggleItem,
   toggleAll,
   tempValidateFeatures,
-  handleToggleTempValidation
+  handleToggleTempValidation,
+  updateProject
 }: Readonly<{
   features: IFeature[]
   tempValidateFeatures: IFeature[]
@@ -21,6 +22,7 @@ function FeaturesTable ({
   toggleItem: (item: IFeature) => void
   toggleAll: () => void
   handleToggleTempValidation: (feature: IFeature) => void
+  updateProject: (project: IProject) => Promise<void>
 }>): React.ReactNode {
   const handleGlobalCheckboxChange = (): void => {
     toggleAll()
@@ -55,6 +57,7 @@ function FeaturesTable ({
               feature={feature}
               checked={isSelected(feature)}
               onCheckedChange={() => handleCheckboxChange(feature)}
+              updateProject={updateProject}
               isTempValidate={tempValidateFeatures.some(
                 (tempFeature) =>
                   (tempFeature._id ?? tempFeature.title) ===

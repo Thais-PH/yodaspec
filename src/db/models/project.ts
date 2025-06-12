@@ -10,24 +10,13 @@ const ProjectSchema = new Schema<IProject>({
     type: String,
     required: false
   },
-  features: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Features'
-  }]
-  // step5: {
-  //   features: [
-  //     {
-  //       relatedTo: {
-  //         type: Schema.Types.ObjectId,
-  //         ref: 'Features'
-  //       }
-  //     }
-  //   ]
-  // }
+  step5: [{ type: Schema.Types.Mixed }]
 }, {
   timestamps: true
 })
 
-const Project = mongoose.models.Project !== undefined ? mongoose.models.Project : mongoose.model<IProject>('Project', ProjectSchema)
+const Project = mongoose.models.Project
+  ? (mongoose.models.Project as mongoose.Model<IProject>)
+  : mongoose.model<IProject>('Project', ProjectSchema)
 
 export default Project

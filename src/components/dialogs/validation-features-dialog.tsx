@@ -10,7 +10,7 @@ import { useState } from 'react'
 
 interface ValidationFeaturesDialogProps {
   tempValidateFeatures: IFeature[]
-  validateFeatures: (features: IFeature[]) => Promise<void>
+  validateFeatures: (projectId: string, features: IFeature[]) => Promise<void>
   projectId: string
 }
 
@@ -27,7 +27,7 @@ function ValidationFeaturesDialog ({
     e.preventDefault()
     try {
       setIsLoading(true)
-      await validateFeatures(tempValidateFeatures)
+      await validateFeatures(projectId, tempValidateFeatures)
       toast.success('Fonctionnalités validées avec succès')
       router.push(`/project/${projectId}/step6`)
     } catch (error) {

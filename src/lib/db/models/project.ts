@@ -9,17 +9,8 @@ const ProjectSchema = new Schema<IProject>({
   description: {
     type: String,
     required: false
-  }
-// step5: {
-//     features: [
-//       {
-//         relatedTo: {
-//           type: Schema.Types.ObjectId,
-//           ref: 'Feature'
-//         }
-//       }
-//     ]
-//   }
+  },
+  step5: [{ type: Schema.Types.Mixed }]
 }, {
   timestamps: true
 })
