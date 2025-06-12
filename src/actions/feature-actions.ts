@@ -1,22 +1,28 @@
 import { IFeature } from '@/types/interfaces'
-import Feature from '@/db/models/features'
 import { connect, disconnect } from '@/lib/db'
+import Project from '@/db/models/project'
+import { revalidatePath } from 'next/cache'
 
-const validateFeatures = async (features: IFeature[]): Promise<void> => {
+const validateFeatures = async (projectId: string, features: IFeature[]): Promise<void> => {
   'use server'
   await connect()
   console.log('Validating features:', features)
-  await Feature.updateMany(
-    { _id: { $in: features.map(feature => feature._id) } },
-    { $set: { isValidate: true } }
+
+  await Project.updateMany(
+    { _id: projectId },
+    { $set: { step5: features.map(feature => ({ ...feature, isValidate: true })) } }
   )
   await disconnect()
 }
 
-const deleteFeatures = async (features: IFeature[]): Promise<void> => {
+const deleteFeatures = async (features: IFeature[], projectId: string): Promise<void> => {
   'use server'
   await connect()
-  await Feature.deleteMany({ _id: { $in: features.map(feature => feature._id) } })
+  await Project.updateOne(
+    { _id: projectId },
+    { $pull: { step5: { title: { $in: features.map(f => f.title) } } } }
+  )
+  revalidatePath(`/project/${projectId}/step5`)
   await disconnect()
 }
 

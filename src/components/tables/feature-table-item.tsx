@@ -1,10 +1,10 @@
 import { TableCell, TableRow } from '@/components/ui/table'
 import ToggleValidateFeature from '../toggles/toggle-validate-feature'
-import ActionTableButton from '../buttons/action-table-button'
-import { IFeature } from '@/types/interfaces'
+import { IFeature, IProject } from '@/types/interfaces'
 import { Checkbox } from '@/components/ui/checkbox'
+import UpdateProjectDialog from '../dialogs/update-project'
 
-function FeatureTableItem ({ checked, feature, onCheckedChange, isTempValidate, handleToggleTempValidation }: Readonly<{ checked?: boolean, feature: IFeature, onCheckedChange?: () => void, isTempValidate?: boolean, handleToggleTempValidation?: () => void }>): React.ReactNode {
+function FeatureTableItem ({ checked, feature, onCheckedChange, isTempValidate, handleToggleTempValidation, updateProject }: Readonly<{ checked?: boolean, feature: IFeature, onCheckedChange?: () => void, isTempValidate?: boolean, handleToggleTempValidation?: () => void, updateProject: (project: IProject) => Promise<void> }>): React.ReactNode {
   return (
     <TableRow
       className={`transition hover:bg-surface-light-20 dark:hover:bg-surface-20 ${
@@ -27,7 +27,7 @@ function FeatureTableItem ({ checked, feature, onCheckedChange, isTempValidate, 
         {feature.description.slice(0, 80)}...
       </TableCell>
       <TableCell>
-        <ActionTableButton icon='Pencil' />
+        <UpdateProjectDialog updateProject={updateProject} feature={feature} />
       </TableCell>
     </TableRow>
   )
