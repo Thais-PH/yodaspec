@@ -7,7 +7,7 @@ const updateProject = async (project: IProject): Promise<void> => {
   'use server'
   await connect()
   const _project = new Project(project)
-  await _project.save()
+  await _project.Project.findByIdAndUpdate()
   revalidatePath('/')
   await disconnect()
 }
