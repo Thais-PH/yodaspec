@@ -5,8 +5,6 @@ import { useSelection } from '@/hooks/useSelection'
 interface IUseFeatureValidation {
   handleToggleTempValidation: (feature: IFeature) => void
   handleToggleTempSelectedValidation: (features: IFeature[]) => void
-  handleFeatureDelete: () => void
-  handleFeatureValidate: () => void
   tempValidateFeatures: IFeature[]
 }
 
@@ -40,20 +38,9 @@ export function useFeatureValidation (features: IFeature[]): IUseFeatureValidati
     resetSelection()
   }
 
-  const handleFeatureDelete = (): void => {
-    // TODO Suppression en BDD + Step6
-  }
-
-  const handleFeatureValidate = (): void => {
-    // TODO Validation en BDD + Step6
-
-  }
-
   return {
     handleToggleTempValidation,
     handleToggleTempSelectedValidation,
-    handleFeatureDelete,
-    handleFeatureValidate,
     tempValidateFeatures
   }
 }

@@ -6,20 +6,31 @@ import { IFeature } from '@/types/interfaces'
 // import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 interface ValidationFeaturesDialogProps {
   tempValidateFeatures: IFeature[]
   validateFeatures: (features: IFeature[]) => Promise<void>
+  projectId: string
 }
 
 function ValidationFeaturesDialog ({
+  projectId,
   tempValidateFeatures,
   validateFeatures
 }: Readonly<ValidationFeaturesDialogProps>): React.ReactNode {
+  const router = useRouter()
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
-    await validateFeatures(tempValidateFeatures)
-    toast.success('Fonctionnalités validées avec succès')
+    try {
+      await validateFeatures(tempValidateFeatures)
+      toast.success('Fonctionnalités validées avec succès')
+      router.push(`/project/${projectId}/step6`)
+    } catch (error) {
+      console.error('Error validating features:', error)
+      toast.error('Erreur lors de la validation des fonctionnalités')
+    }
   }
 
   return (

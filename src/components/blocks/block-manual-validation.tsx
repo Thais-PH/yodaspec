@@ -6,8 +6,13 @@ import { IFeature } from '@/types/interfaces'
 import { useSelection } from '@/hooks/useSelection'
 import { useFeatureValidation } from '@/hooks/useFeatureValidation'
 import ValidationFeaturesDialog from '../dialogs/validation-features-dialog'
+import { toast } from 'react-toastify'
+import { useParams } from 'next/navigation'
 
-function BlockManualValidation ({ features, validateFeatures }: Readonly<{ features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
+function BlockManualValidation ({ features, validateFeatures, deleteFeatures }: Readonly<{ features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void>, deleteFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
+  const params = useParams()
+  const projectId = params.projectId as string
+
   // Hooks to handle selection in table
   const { isSelected, areAllSelected, toggleItem, toggleAll, getSelectedItems } =
     useSelection<IFeature>({
@@ -17,11 +22,20 @@ function BlockManualValidation ({ features, validateFeatures }: Readonly<{ featu
 
   // Hooks to handle validation of features
   const {
-    handleFeatureDelete,
     handleToggleTempSelectedValidation,
     handleToggleTempValidation,
     tempValidateFeatures
   } = useFeatureValidation(features)
+
+  const handleDeleteFeatures = async (): Promise<void> => {
+    try {
+      await deleteFeatures(getSelectedItems())
+      toast.success('Spécifications supprimées avec succès')
+    } catch (error) {
+      console.error('Error deleting features:', error)
+      toast.error('Erreur lors de la suppression des spécifications')
+    }
+  }
 
   return (
     <div className='w-full'>
@@ -41,7 +55,7 @@ function BlockManualValidation ({ features, validateFeatures }: Readonly<{ featu
           </Button>
           <Button
             disabled={getSelectedItems().length === 0}
-            onClick={handleFeatureDelete}
+            onClick={() => { void handleDeleteFeatures() }}
             variant='outline'
             className='cursor-pointer hover:text-red-500 hover:bg-white dark:hover:bg-surface-20 transition'
           >
@@ -61,7 +75,7 @@ function BlockManualValidation ({ features, validateFeatures }: Readonly<{ featu
       />
 
       <div className='flex justify-end mt-6'>
-        <ValidationFeaturesDialog validateFeatures={validateFeatures} tempValidateFeatures={tempValidateFeatures} />
+        <ValidationFeaturesDialog projectId={projectId} validateFeatures={validateFeatures} tempValidateFeatures={tempValidateFeatures} />
       </div>
     </div>
   )

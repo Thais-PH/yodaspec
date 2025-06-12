@@ -6,18 +6,21 @@ const validateFeatures = async (features: IFeature[]): Promise<void> => {
   'use server'
   await connect()
   console.log('Validating features:', features)
-  try {
-    await Feature.updateMany(
-      { _id: { $in: features.map(feature => feature._id) } },
-      { $set: { isValidate: true } }
-    )
-  } catch (error) {
-    console.error('Error validating features:', error)
-  } finally {
-    await disconnect()
-  }
+  await Feature.updateMany(
+    { _id: { $in: features.map(feature => feature._id) } },
+    { $set: { isValidate: true } }
+  )
+  await disconnect()
+}
+
+const deleteFeatures = async (features: IFeature[]): Promise<void> => {
+  'use server'
+  await connect()
+  await Feature.deleteMany({ _id: { $in: features.map(feature => feature._id) } })
+  await disconnect()
 }
 
 export {
-  validateFeatures
+  validateFeatures,
+  deleteFeatures
 }
