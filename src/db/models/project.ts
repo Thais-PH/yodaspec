@@ -14,30 +14,16 @@ const ProjectSchema = new Schema<IProject>({
     type: Schema.Types.ObjectId,
     ref: 'Features'
   }]
-  // step2: {
+  // step5: {
   //   features: [
   //     {
   //       relatedTo: {
   //         type: Schema.Types.ObjectId,
-  //         ref: 'Feature'
+  //         ref: 'Features'
   //       }
   //     }
   //   ]
   // }
-  // step4: {
-  //   features: [
-  //     {
-  //       relatedTo: {
-  //         type: Schema.Types.ObjectId,
-  //         ref: 'Feature'
-  //       },
-  //       description: {
-  //         type: String,
-  //         required: false
-  //       }
-  //     }
-  //   ]
-  //  }
 }, {
   timestamps: true
 })

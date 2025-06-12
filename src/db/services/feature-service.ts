@@ -17,6 +17,21 @@ const getFeatures = async (): Promise<IFeature[]> => {
   }
 }
 
+const getFeaturesByProjectId = async (projectId: string): Promise<IFeature[]> => {
+  await connect()
+  try {
+    const _features = await (Feature as Model<IFeature>).find({ idProject: projectId }).lean().exec()
+    const features = JSON.parse(JSON.stringify(_features))
+    return features
+  } catch (error) {
+    console.error(error)
+    return []
+  } finally {
+    await disconnect()
+  }
+}
+
 export {
-  getFeatures
+  getFeatures,
+  getFeaturesByProjectId
 }

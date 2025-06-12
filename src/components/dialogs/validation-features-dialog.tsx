@@ -1,12 +1,12 @@
 'use client'
 
-import { Check, Undo } from 'lucide-react'
+import { Check, Loader2, Undo } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger, DialogClose } from '../ui/dialog'
 import { IFeature } from '@/types/interfaces'
-// import { toast } from 'react-toastify'
 import { Button } from '../ui/button'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface ValidationFeaturesDialogProps {
   tempValidateFeatures: IFeature[]
@@ -21,15 +21,20 @@ function ValidationFeaturesDialog ({
 }: Readonly<ValidationFeaturesDialogProps>): React.ReactNode {
   const router = useRouter()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
     try {
+      setIsLoading(true)
       await validateFeatures(tempValidateFeatures)
       toast.success('Fonctionnalités validées avec succès')
       router.push(`/project/${projectId}/step6`)
     } catch (error) {
       console.error('Error validating features:', error)
       toast.error('Erreur lors de la validation des fonctionnalités')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -66,19 +71,20 @@ function ValidationFeaturesDialog ({
             ))}
           </div>
 
-          <div className='mt-8 flex flex-col sm:flex-row gap-4 justify-end'>
+          <div className='mt-8 flex flex-col items-stretch sm:flex-row gap-4 justify-end'>
             <DialogClose
-              className='flex items-center cursor-pointer gap-2 px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors'
+              className='flex cursor-pointer h-auto w-full gap-2 items-center disabled:opacity-50 px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors'
+              disabled={isLoading}
             >
               <Undo className='h-5 w-5' />
               Annuler
             </DialogClose>
             <Button
               type='submit'
-              className='flex items-center text-nowrap cursor-pointer gap-2 px-6 py-2.5 bg-primary hover:bg-primary-10 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white rounded-lg transition-colors'
+              className='flex items-center h-auto disabled:opacity-50 text-nowrap cursor-pointer gap-2 px-6 py-2.5 bg-primary hover:bg-primary-10 dark:bg-indigo-600 dark:hover:bg-indigo-700 text-white rounded-lg transition-colors'
+              disabled={isLoading}
             >
-              {/* {isLoading ? <Loader2 className='w-4 h-4 mr-2 animate-spin' /> : null} */}
-              <Check className='h-5 w-5' />
+              {isLoading ? <Loader2 className='w-5 h-5 mr-2 animate-spin' /> : <Check className='h-5 w-5' />}
               Confirmer et passer à l'étape suivante
             </Button>
           </div>

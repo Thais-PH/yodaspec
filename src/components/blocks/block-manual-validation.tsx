@@ -7,12 +7,8 @@ import { useSelection } from '@/hooks/useSelection'
 import { useFeatureValidation } from '@/hooks/useFeatureValidation'
 import ValidationFeaturesDialog from '../dialogs/validation-features-dialog'
 import { toast } from 'react-toastify'
-import { useParams } from 'next/navigation'
 
-function BlockManualValidation ({ features, validateFeatures, deleteFeatures }: Readonly<{ features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void>, deleteFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
-  const params = useParams()
-  const projectId = params.projectId as string
-
+function BlockManualValidation ({ projectId, features, validateFeatures, deleteFeatures }: Readonly<{ projectId: string, features: IFeature[], validateFeatures: (features: IFeature[]) => Promise<void>, deleteFeatures: (features: IFeature[]) => Promise<void> }>): React.ReactNode {
   // Hooks to handle selection in table
   const { isSelected, areAllSelected, toggleItem, toggleAll, getSelectedItems } =
     useSelection<IFeature>({

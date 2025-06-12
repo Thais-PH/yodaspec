@@ -3,11 +3,11 @@ export interface IProject {
   title: string
   description: string
   features?: IFeature[]
-  createdAt?: Date
-  updatedAt?: Date
-  // step5: {
+  // step5?: {
   //   features: IFeature[]
   // }
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface IFeature {
@@ -30,4 +30,8 @@ export interface IUseSelectionReturn<T> {
   resetSelection: () => void
   toggleItem: (item: T) => void
   toggleAll: () => void
+}
+
+export interface IStep5PageProps {
+  params: { projectId: string }
 }
